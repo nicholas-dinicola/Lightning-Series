@@ -131,6 +131,8 @@ if __name__ == "__main__":
 
     main(args)
 
+    # python main.py --accelerator "cpu" --epochs 2
+
 
 
 
