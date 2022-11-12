@@ -86,7 +86,7 @@ class CNN(pl.LightningModule):
         self.cnn_block = nn.Sequential(*cnn_block)
         self.head = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(64 * 3 * 3, n_lables)
+            nn.Linear(cnn_out_channels[-1] * 3 * 3, n_lables)
         )
 
     def forward(self, x) -> torch.Tensor:
@@ -133,8 +133,7 @@ class CNN(pl.LightningModule):
         optimizer = torch.optim.Adam(self.parameters(), lr=0.001)
         return optimizer
 
-
-def main(args: Any):
+def main(args):
     dataset = Dataset()
     net = CNN()
     callbacks = [ModelCheckpoint(save_top_k=1, mode='max', monitor="valid_acc")]  # save top 1 model
@@ -151,18 +150,7 @@ if __name__ == "__main__":
 
     main(args)
 
-    # $ python main.py --accelerator "cpu" --epochs 2
-
-
-
-
-
-
-
-
-
-
-
+    # python main.py --accelerator "cpu" --epochs 2
 
 
 
